@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --color1: #845ec2;
+  --color2: #ad5e00;
+  --color3: #008c82;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+nav {
+  background-color: var(--color1);
+  padding: 1rem;
+  color: white;
+}
+
+tr,
+th,
+td {
+  outline: 1px solid black;
+}
+
+th {
+  padding: 0.8rem;
+}
+
+td {
+  padding: 0.5rem;
+}
+
+.setSchedule {
+  overflow: scroll;
+  padding-bottom: 0.3rem;
+  padding: 1rem;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.saveRecord {
+  background-color: var(--color2);
+  color: white;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  width: fit-content;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.sub {
+  padding: 1rem;
+  color: white;
+  background-color: var(--color2);
+  border-radius: 0.3rem;
+  outline: 1px solid gray;
+}
+
+.subjectsForm {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto auto auto 1;
+  gap: 0.2rem;
+}
+
+.addSubject {
+  padding: 0.5rem;
+  color: white;
+  background-color: var(--color2);
+  width: fit-content;
+  border-radius: 0.3rem;
+  grid-column: 2;
+}
+
+main {
+  height: 100dvh;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.records {
+  max-height: 50dvh;
+  overflow-y: scroll;
+  padding: 1rem;
+}
+
+.currentRecords {
+  outline: 1px solid black;
+}
