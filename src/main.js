@@ -44,7 +44,46 @@ async function populateSubjects() {
   });
 }
 
-time("#start");
-time("#end");
-read();
-populateSubjects();
+const fillSpace = (
+  day,
+  subject = null,
+  start = null,
+  end = null,
+  block = null
+) => {
+  const btn = document.querySelector(".addSubject");
+  const target = document.querySelectorAll(".time-" + day);
+
+  let i = 1;
+  target.forEach((e) => {
+    if (e.textContent != "") {
+      // fix a this condition kasi nagiging uneditable yung shits
+      return;
+    }
+    e.textContent = subject;
+    e.style.color = "red";
+    // e.style.outline = "none";
+    i++;
+  });
+};
+
+const addSched = () => {
+  const data = {}; // add yung data sa isang global variable
+  const btn = document.querySelector(".addSubject");
+  const day = document.querySelector("#day");
+  const subject = document.querySelector("#subject");
+  btn.addEventListener("click", (e) => {
+    data["day"] = day.value;
+    data["subject"] = subject.value;
+    console.log(data);
+    fillSpace(day.value, subject.value);
+  });
+};
+
+(() => {
+  time("#start");
+  time("#end");
+  read();
+  populateSubjects();
+  addSched();
+})();

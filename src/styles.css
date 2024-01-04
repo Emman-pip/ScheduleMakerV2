@@ -75,6 +75,7 @@ main {
   width: fit-content;
   border-radius: 0.3rem;
   grid-column: 2;
+  cursor: pointer;
 }
 
 main {
