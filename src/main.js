@@ -1,4 +1,21 @@
 const DOMStuff = () => {
+  // create a function to check if a data has a conflict in the empty storage
+  const checkSubjectConflict = (obj, data) => {
+    const keys = Object.values(obj);
+    for (let i = 0; i < keys.length; i++) {
+      if (
+        keys[i]["day"] == data["day"] &&
+        data["start"] >= keys[i]["start"] &&
+        data["end"] <= keys[i]["end"]
+      ) {
+        console.log("conflict");
+        alert(keys[i]["subject"] + " was replaced by " + data["subject"]);
+        obj[i] = data;
+        return false;
+      }
+    }
+    return true;
+  };
   return {
     time(id) {
       const target = document.querySelector(id);
@@ -94,10 +111,17 @@ const DOMStuff = () => {
         data["subject"] = subject.value;
         data["start"] = startValue;
         data["end"] = endValue;
-        object[i] = data;
+
+        const bool = checkSubjectConflict(object, data);
+        console.log(bool);
+        if (bool) {
+          console.log("bool: true");
+          object[i] = data;
+          i++;
+        }
+
         console.log(object);
-        i++;
-        // console.log(data);
+
         this.fillSpace(day.value, subject.value, data["start"], data["end"]);
         return true;
       });
