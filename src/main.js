@@ -68,8 +68,7 @@ const DOMStuff = () => {
         this.actionPerformedPopulate(target, data, subjectContainer);
       });
     },
-    // do the start end(will be -1)
-    // then do the storage struff
+    // dapat dito ay mag derive ng display from temp object
     fillSpace(day, subject = null, start = null, end = null, block = null) {
       const btn = document.querySelector(".addSubject");
       const target = document.querySelectorAll(".time-" + day);
@@ -83,6 +82,20 @@ const DOMStuff = () => {
           // e.style.outline = "none";
         }
         i++;
+      });
+    },
+    refreshData(obj) {
+      const keys = Object.values(obj);
+      const row = document.querySelectorAll('[class^="time-"]');
+      row.forEach((e) => {
+        e.textContent = "";
+      });
+      keys.forEach((e) => {
+        try {
+          this.fillSpace(e["day"], e["subject"], e["start"], e["end"]);
+        } catch (err) {
+          console.log(err);
+        }
       });
     },
 
@@ -121,8 +134,8 @@ const DOMStuff = () => {
         }
 
         console.log(object);
+        this.refreshData(object);
 
-        this.fillSpace(day.value, subject.value, data["start"], data["end"]);
         return true;
       });
     },
@@ -152,3 +165,5 @@ const tempStorage = () => {
   obj.addSchedMethod();
   obj.init();
 })();
+
+// TODO: UPDATE GUI-> dapat magrread based sa data tsaka add.
