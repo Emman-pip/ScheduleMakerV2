@@ -5,6 +5,11 @@ const clearSched = () => {
   });
 };
 
+const changeTitle = (text) => {
+  const target = document.querySelector(".name");
+  target.textContent = text;
+};
+
 const DOMStuff = () => {
   // create a function to check if a data has a conflict in the empty storage
   const checkSubjectConflict = (obj, data) => {
@@ -24,6 +29,32 @@ const DOMStuff = () => {
     return true;
   };
   return {
+    updateRecords() {
+      const data = JSON.parse(localStorage.getItem("folders"));
+      if (data === null || Object.keys(data).length === 0) {
+        return;
+      }
+      const target = document.querySelector(".blocks");
+      target.innerHTML = "";
+      Object.keys(data).forEach((e) => {
+        const newElement = document.createElement("div");
+        newElement.classList.add("blockName");
+        newElement.textContent = e;
+        console.log(e);
+        target.appendChild(newElement);
+      });
+    },
+    displayRecords() {
+      const record = document.querySelectorAll(".blockName");
+      const data = JSON.parse(localStorage.getItem("folders"));
+      console.log(data);
+      record.forEach((e) => {
+        e.addEventListener("click", (ev) => {
+          this.refreshData(data[e.textContent]);
+          changeTitle(e.textContent);
+        });
+      });
+    },
     time(id) {
       const target = document.querySelector(id);
       let time = "AM";
@@ -105,13 +136,14 @@ const DOMStuff = () => {
     },
 
     addSched(object) {
-      const btn = document.querySelector(".addSubject");
-      const day = document.querySelector("#day");
-      const start = document.querySelector("#start");
-      const end = document.querySelector("#end");
-      const subject = document.querySelector("#subject");
       let i = 0;
+      const btn = document.querySelector(".addSubject");
       btn.addEventListener("click", (e) => {
+        const day = document.querySelector("#day");
+        const start = document.querySelector("#start");
+        const end = document.querySelector("#end");
+        const subject = document.querySelector("#subject");
+        changeTitle("Enter new sched");
         let data = {}; // add yung data sa isang global variable
         const endValue = end.value.includes("AM")
           ? parseInt(end.value.substring(0, end.value.length - 2)) - 5
@@ -151,10 +183,13 @@ const tempStorage = () => {
   return {
     gui: DOMStuff(),
     init() {
+      this.gui.refreshData({});
       this.gui.read();
       this.gui.populateSubjects();
       this.gui.time("#start");
       this.gui.time("#end");
+      this.gui.updateRecords();
+      this.gui.displayRecords();
     },
     data: {},
     localStr: StorageObj(),
@@ -170,11 +205,12 @@ const tempStorage = () => {
       const btn = document.querySelector(".saveRecord");
       btn.addEventListener("click", () => {
         this.localStr.addBlockToFolder(this.data);
-        console.log("localstg:", localStorage.getItem("folders"));
+        console.log("localstg:", JSON.parse(localStorage.getItem("folders")));
         this.gui.refreshData(this.data);
-        // this.clearData();
-        clearSched();
         this.clearData();
+        clearSched();
+        this.gui.updateRecords();
+        this.gui.displayRecords();
       });
     },
   };
@@ -197,6 +233,7 @@ const StorageObj = () => {
         alert("Please remove the space on the block name.");
         return;
       }
+      this.folders = JSON.parse(localStorage.getItem("folders"));
       this.folders[blockname.value] = data;
       localStorage.setItem("folders", JSON.stringify(this.folders));
       blockname.value = "";
@@ -209,8 +246,11 @@ const StorageObj = () => {
   obj.addSchedMethod();
   obj.init();
   obj.unifySched();
-  // to.toLocalStorage();
-  // console.log("etoh ba: ", to.folders);
 })();
 
-// TODO: display records saved blocks
+// TODO:
+// 1. organize gui
+// 2. logic for conflicts between schedules
+// notes:
+//   the function should do a string check to section name to know year level and compare each other
+//   results should be organized in the following order: least conflict first

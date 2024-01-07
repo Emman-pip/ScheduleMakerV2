@@ -31,6 +31,8 @@ td {
 
 .setSchedule {
   overflow: scroll;
+  overflow-y: visible;
+  scrollbar-width: 0;
   padding-bottom: 0.3rem;
   padding: 1rem;
 }
@@ -96,4 +98,16 @@ main {
 
 .currentRecords {
   outline: 1px solid black;
+}
+
+.blockName {
+  cursor: pointer;
+  outline: 1px solid black;
+  background-color: var(--color3);
+  color: wheat;
+  padding: 0.3rem;
+}
+
+.blockName::-webkit-scrollbar {
+  width: 2px;
 }
