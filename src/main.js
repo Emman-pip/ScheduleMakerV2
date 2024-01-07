@@ -24,6 +24,21 @@ const DOMStuff = () => {
     return true;
   };
   return {
+    updateRecords() {
+      const data = JSON.parse(localStorage.getItem("folders"));
+      if (Object.keys(data).length === 0) {
+        return;
+      }
+      const target = document.querySelector(".blocks");
+      target.innerHTML = "";
+      Object.keys(data).forEach((e) => {
+        const newElement = document.createElement("div");
+        newElement.classList.add("blockName");
+        newElement.textContent = e;
+        console.log(e);
+        target.appendChild(newElement);
+      });
+    },
     time(id) {
       const target = document.querySelector(id);
       let time = "AM";
@@ -151,6 +166,7 @@ const tempStorage = () => {
   return {
     gui: DOMStuff(),
     init() {
+      this.gui.updateRecords();
       this.gui.read();
       this.gui.populateSubjects();
       this.gui.time("#start");
@@ -172,6 +188,7 @@ const tempStorage = () => {
         this.gui.refreshData(this.data);
         this.data = {};
         clearSched();
+        this.gui.updateRecords();
       });
     },
   };
