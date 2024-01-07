@@ -250,3 +250,6 @@ const StorageObj = () => {
 // TODO:
 // 1. organize gui
 // 2. logic for conflicts between schedules
+// notes:
+//   the function should do a string check to section name to know year level and compare each other
+//   results should be organized in the following order: least conflict first
