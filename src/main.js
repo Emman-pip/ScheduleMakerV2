@@ -213,4 +213,4 @@ const StorageObj = () => {
   // console.log("etoh ba: ", to.folders);
 })();
 
-// TODO: Fix bug where storage isn't instantiated every save.
+// TODO: display records saved blocks
