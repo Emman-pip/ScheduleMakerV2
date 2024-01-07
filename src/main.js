@@ -167,7 +167,7 @@ const tempStorage = () => {
       this.localStr.toLocalStorage();
       const btn = document.querySelector(".saveRecord");
       btn.addEventListener("click", () => {
-        this.localStr.addBlockToFolder(JSON.stringify(this.data));
+        this.localStr.addBlockToFolder(this.data);
         console.log("localstg:", localStorage.getItem("folders"));
         this.gui.refreshData(this.data);
         this.data = {};
@@ -186,6 +186,7 @@ const StorageObj = () => {
         return;
       }
       this.folders = JSON.parse(localStorage.getItem("folders"));
+      console.log(this.folders);
     },
     addBlockToFolder(data) {
       const blockname = document.querySelector(".className");
