@@ -99,3 +99,15 @@ main {
 .currentRecords {
   outline: 1px solid black;
 }
+
+.blockName {
+  cursor: pointer;
+  outline: 1px solid black;
+  background-color: var(--color3);
+  color: wheat;
+  padding: 0.3rem;
+}
+
+.blockName::-webkit-scrollbar {
+  width: 2px;
+}

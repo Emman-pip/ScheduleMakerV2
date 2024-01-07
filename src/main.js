@@ -26,7 +26,7 @@ const DOMStuff = () => {
   return {
     updateRecords() {
       const data = JSON.parse(localStorage.getItem("folders"));
-      if (Object.keys(data).length === 0) {
+      if (data === null || Object.keys(data).length === 0) {
         return;
       }
       const target = document.querySelector(".blocks");
@@ -37,6 +37,16 @@ const DOMStuff = () => {
         newElement.textContent = e;
         console.log(e);
         target.appendChild(newElement);
+      });
+    },
+    displayRecords() {
+      const record = document.querySelectorAll(".blockName");
+      const data = JSON.parse(localStorage.getItem("folders"));
+      console.log(data);
+      record.forEach((e) => {
+        e.addEventListener("click", (ev) => {
+          this.refreshData(data[e.textContent]);
+        });
       });
     },
     time(id) {
@@ -166,11 +176,13 @@ const tempStorage = () => {
   return {
     gui: DOMStuff(),
     init() {
-      this.gui.updateRecords();
+      this.gui.refreshData({});
       this.gui.read();
       this.gui.populateSubjects();
       this.gui.time("#start");
       this.gui.time("#end");
+      this.gui.updateRecords();
+      this.gui.displayRecords();
     },
     data: {},
     localStr: StorageObj(),
@@ -191,6 +203,7 @@ const tempStorage = () => {
         this.clearData();
         clearSched();
         this.gui.updateRecords();
+        this.gui.displayRecords();
       });
     },
   };
@@ -227,4 +240,4 @@ const StorageObj = () => {
   obj.unifySched();
 })();
 
-// TODO: Fix bug where storage isn't instantiated every save.
+// TODO: make buttons functional records
