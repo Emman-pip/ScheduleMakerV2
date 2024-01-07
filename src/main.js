@@ -5,6 +5,11 @@ const clearSched = () => {
   });
 };
 
+const changeTitle = (text) => {
+  const target = document.querySelector(".name");
+  target.textContent = text;
+};
+
 const DOMStuff = () => {
   // create a function to check if a data has a conflict in the empty storage
   const checkSubjectConflict = (obj, data) => {
@@ -46,6 +51,7 @@ const DOMStuff = () => {
       record.forEach((e) => {
         e.addEventListener("click", (ev) => {
           this.refreshData(data[e.textContent]);
+          changeTitle(e.textContent);
         });
       });
     },
@@ -137,6 +143,7 @@ const DOMStuff = () => {
       const subject = document.querySelector("#subject");
       let i = 0;
       btn.addEventListener("click", (e) => {
+        changeTitle("Enter new sched");
         let data = {}; // add yung data sa isang global variable
         const endValue = end.value.includes("AM")
           ? parseInt(end.value.substring(0, end.value.length - 2)) - 5
