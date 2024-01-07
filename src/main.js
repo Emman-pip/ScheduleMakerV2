@@ -37,11 +37,31 @@ const DOMStuff = () => {
       const target = document.querySelector(".blocks");
       target.innerHTML = "";
       Object.keys(data).forEach((e) => {
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.width = "100%";
+        container.style.justifyContent = "center";
+        container.style.alignItems = "center";
+        container.style.gap = "0.2rem";
+        container.style.padding = "0.3rem";
+        container.style.outline = "1px solid black";
         const newElement = document.createElement("div");
         newElement.classList.add("blockName");
         newElement.textContent = e;
-        console.log(e);
-        target.appendChild(newElement);
+        newElement.style.width = "100%";
+        const btn = document.createElement("div");
+        btn.textContent = "❌";
+        btn.classList.add("deleteBlock");
+        container.appendChild(newElement);
+        container.appendChild(btn);
+        target.appendChild(container);
+        console.log("lol");
+        btn.addEventListener("click", (ev) => {
+          console.log("deleted: ", e);
+          delete data[e];
+          localStorage.setItem("folders", JSON.stringify(data));
+          target.removeChild(container);
+        });
       });
     },
     displayRecords() {
@@ -241,6 +261,8 @@ const StorageObj = () => {
   };
 };
 
+const blocksCompatibility = () => {};
+
 (() => {
   const obj = tempStorage();
   obj.addSchedMethod();
@@ -249,7 +271,7 @@ const StorageObj = () => {
 })();
 
 // TODO:
-// 1. organize gui
+// 1. organize gui -> try to add delete button for added blocks
 // 2. logic for conflicts between schedules
 // notes:
 //   the function should do a string check to section name to know year level and compare each other

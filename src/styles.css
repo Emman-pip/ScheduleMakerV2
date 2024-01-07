@@ -111,3 +111,7 @@ main {
 .blockName::-webkit-scrollbar {
   width: 2px;
 }
+
+.deleteBlock {
+  cursor: pointer;
+}
