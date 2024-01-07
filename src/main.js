@@ -158,7 +158,9 @@ const tempStorage = () => {
     },
     data: {},
     localStr: StorageObj(),
-
+    clearData() {
+      for (var member in this.data) delete this.data[member];
+    },
     addSchedMethod() {
       console.log(this.gui.addSched(this.data));
       console.log(this.data);
@@ -170,8 +172,9 @@ const tempStorage = () => {
         this.localStr.addBlockToFolder(this.data);
         console.log("localstg:", localStorage.getItem("folders"));
         this.gui.refreshData(this.data);
-        this.data = {};
+        // this.clearData();
         clearSched();
+        this.clearData();
       });
     },
   };
@@ -210,6 +213,4 @@ const StorageObj = () => {
   // console.log("etoh ba: ", to.folders);
 })();
 
-// TODO: correlate the data entered (subjects and time) to a block
-//       after correlation, add the block to blocksContainer and add to local storage done!
-// add a clear sht (sa storage). done!
+// TODO: Fix bug where storage isn't instantiated every save.
