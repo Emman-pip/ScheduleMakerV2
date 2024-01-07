@@ -240,4 +240,6 @@ const StorageObj = () => {
   obj.unifySched();
 })();
 
-// TODO: make buttons functional records
+// TODO:
+// 1. organize gui
+// 2. logic for conflicts between schedules
