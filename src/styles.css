@@ -31,6 +31,8 @@ td {
 
 .setSchedule {
   overflow: scroll;
+  overflow-y: visible;
+  scrollbar-width: 0;
   padding-bottom: 0.3rem;
   padding: 1rem;
 }

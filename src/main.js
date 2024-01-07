@@ -206,8 +206,6 @@ const StorageObj = () => {
   obj.addSchedMethod();
   obj.init();
   obj.unifySched();
-  // to.toLocalStorage();
-  // console.log("etoh ba: ", to.folders);
 })();
 
 // TODO: correlate the data entered (subjects and time) to a block
