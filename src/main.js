@@ -1,3 +1,10 @@
+const clearSched = () => {
+  const row = document.querySelectorAll('[class^="time-"]');
+  row.forEach((e) => {
+    e.textContent = "";
+  });
+};
+
 const DOMStuff = () => {
   // create a function to check if a data has a conflict in the empty storage
   const checkSubjectConflict = (obj, data) => {
@@ -86,10 +93,8 @@ const DOMStuff = () => {
     },
     refreshData(obj) {
       const keys = Object.values(obj);
-      const row = document.querySelectorAll('[class^="time-"]');
-      row.forEach((e) => {
-        e.textContent = "";
-      });
+      // subhere
+      clearSched();
       keys.forEach((e) => {
         try {
           this.fillSpace(e["day"], e["subject"], e["start"], e["end"]);
@@ -152,10 +157,45 @@ const tempStorage = () => {
       this.gui.time("#end");
     },
     data: {},
+    localStr: StorageObj(),
 
     addSchedMethod() {
       console.log(this.gui.addSched(this.data));
       console.log(this.data);
+    },
+    unifySched() {
+      this.localStr.toLocalStorage();
+      const btn = document.querySelector(".saveRecord");
+      btn.addEventListener("click", () => {
+        this.localStr.addBlockToFolder(JSON.stringify(this.data));
+        console.log("localstg:", localStorage.getItem("folders"));
+        this.gui.refreshData(this.data);
+        this.data = {};
+        clearSched();
+      });
+    },
+  };
+};
+
+const StorageObj = () => {
+  return {
+    folders: {},
+    toLocalStorage() {
+      if (localStorage.getItem("folders") === null) {
+        localStorage.setItem("folders", JSON.stringify(this.folders));
+        return;
+      }
+      this.folders = JSON.parse(localStorage.getItem("folders"));
+    },
+    addBlockToFolder(data) {
+      const blockname = document.querySelector(".className");
+      if (blockname.value.includes(" ") || blockname.value === "") {
+        alert("Please remove the space on the block name.");
+        return;
+      }
+      this.folders[blockname.value] = data;
+      localStorage.setItem("folders", JSON.stringify(this.folders));
+      blockname.value = "";
     },
   };
 };
@@ -164,6 +204,11 @@ const tempStorage = () => {
   const obj = tempStorage();
   obj.addSchedMethod();
   obj.init();
+  obj.unifySched();
+  // to.toLocalStorage();
+  // console.log("etoh ba: ", to.folders);
 })();
 
-// TODO: UPDATE GUI-> dapat magrread based sa data tsaka add.
+// TODO: correlate the data entered (subjects and time) to a block
+//       after correlation, add the block to blocksContainer and add to local storage done!
+// add a clear sht (sa storage). done!
