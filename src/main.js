@@ -261,7 +261,20 @@ const StorageObj = () => {
   };
 };
 
-const blocksCompatibility = () => {};
+// user will choose between 2 blocks and the program will run like a biatch
+const blocksCompatibility = (num1, num2) => {
+  const data = JSON.parse(localStorage.getItem("folders"));
+  const keys = Object.keys(data);
+  const first = [];
+  const second = [];
+  const third = [];
+  const fourth = [];
+  const levels = [first, second, third, fourth];
+  keys.forEach((e) => {
+    levels[parseInt(e[0]) - 1].push(e);
+  });
+  // computation happens here, all data is sorted
+};
 
 (() => {
   const obj = tempStorage();
@@ -271,7 +284,7 @@ const blocksCompatibility = () => {};
 })();
 
 // TODO:
-// 1. organize gui -> try to add delete button for added blocks
+// 1. organize gui -> do design (sidebar and shit)
 // 2. logic for conflicts between schedules
 // notes:
 //   the function should do a string check to section name to know year level and compare each other
