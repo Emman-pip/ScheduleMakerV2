@@ -277,15 +277,17 @@ const blocksCompatibility = (num1, num2) => {
   });
 
   console.log(data);
-  localStorage.setItem("analyzedData", JSON.stringify({}));
   // storage for conflicted data here.
+  const blockCombinations = {};
   for (let i = 0; i < levels[parseInt(num1) - 1].length; i++) {
     const blockData = data[levels[parseInt(num1) - 1][i]];
     for (let v = 0; v < Object.keys(blockData).length; v++) {
       console.log("blockdata", blockData[v]);
-
       for (let j = 0; j < levels[parseInt(num2) - 1].length; j++) {
         const blockData2 = data[levels[parseInt(num2) - 1][j]];
+        blockCombinations[
+          levels[parseInt(num1) - 1][i] + "+" + levels[parseInt(num2) - 1][j]
+        ] = [];
         for (let k = 0; k < Object.keys(blockData2).length; k++) {
           console.log(
             levels[parseInt(num1) - 1][i],
@@ -293,11 +295,31 @@ const blocksCompatibility = (num1, num2) => {
             levels[parseInt(num2) - 1][j],
             blockData2[k]
           );
+          console.log("BLOCK TARGET: ", blockData[Object.keys(blockData)[v]]);
+          if (
+            blockData[Object.keys(blockData)[v]]["day"] ===
+              blockData2[Object.keys(blockData2)[k]]["day"] &&
+            blockData[Object.keys(blockData)[v]]["day"] >=
+              blockData2[Object.keys(blockData2)[k]]["day"] &&
+            blockData[Object.keys(blockData)[v]]["day"] >=
+              blockData2[Object.keys(blockData2)[k]]["day"]
+          ) {
+            blockCombinations[
+              levels[parseInt(num1) - 1][i] +
+                "+" +
+                levels[parseInt(num2) - 1][j]
+            ].push([
+              blockData[Object.keys(blockData)[v]]["subject"],
+              blockData2[Object.keys(blockData2)[k]]["subject"],
+            ]);
+          }
         }
       }
     }
   }
-  // computation happens here, all data is sorted
+  // computation happens here, all data is sorted'
+  console.log("ANALYZED: ", blockCombinations);
+  localStorage.setItem("analyzedData", JSON.stringify(blockCombinations));
 };
 
 (() => {
