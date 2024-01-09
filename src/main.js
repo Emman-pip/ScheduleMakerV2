@@ -263,6 +263,7 @@ const StorageObj = () => {
 
 // user will choose between 2 blocks and the program will run like a biatch
 const blocksCompatibility = (num1, num2) => {
+  // this function will be used by an even listener. the parameters will come from the analyze scheds section
   const data = JSON.parse(localStorage.getItem("folders"));
   const keys = Object.keys(data);
   const first = [];
@@ -270,9 +271,32 @@ const blocksCompatibility = (num1, num2) => {
   const third = [];
   const fourth = [];
   const levels = [first, second, third, fourth];
+  // push to corresponding year level
   keys.forEach((e) => {
-    levels[parseInt(e[0]) - 1].push(e);
+    if (e[0] == num1 || e[0] == num2) levels[parseInt(e[0]) - 1].push(e);
   });
+
+  console.log(data);
+  localStorage.setItem("analyzedData", JSON.stringify({}));
+  // storage for conflicted data here.
+  for (let i = 0; i < levels[parseInt(num1) - 1].length; i++) {
+    const blockData = data[levels[parseInt(num1) - 1][i]];
+    for (let v = 0; v < Object.keys(blockData).length; v++) {
+      console.log("blockdata", blockData[v]);
+
+      for (let j = 0; j < levels[parseInt(num2) - 1].length; j++) {
+        const blockData2 = data[levels[parseInt(num2) - 1][j]];
+        for (let k = 0; k < Object.keys(blockData2).length; k++) {
+          console.log(
+            levels[parseInt(num1) - 1][i],
+            blockData[v],
+            levels[parseInt(num2) - 1][j],
+            blockData2[k]
+          );
+        }
+      }
+    }
+  }
   // computation happens here, all data is sorted
 };
 
@@ -281,6 +305,7 @@ const blocksCompatibility = (num1, num2) => {
   obj.addSchedMethod();
   obj.init();
   obj.unifySched();
+  blocksCompatibility("1", "2");
 })();
 
 // TODO:
