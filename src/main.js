@@ -293,7 +293,6 @@ const blocksCompatibility = (num1, num2) => {
   for (let i = 0; i < levels[parseInt(num1) - 1].length; i++) {
     const blockData = data[levels[parseInt(num1) - 1][i]];
     for (let v = 0; v < Object.keys(blockData).length; v++) {
-      // console.log("blockdata", blockData[v]);
       for (let j = 0; j < levels[parseInt(num2) - 1].length; j++) {
         const blockData2 = data[levels[parseInt(num2) - 1][j]];
         if (
@@ -306,57 +305,23 @@ const blocksCompatibility = (num1, num2) => {
           ] = [];
         }
         for (let k = 0; k < Object.keys(blockData2).length; k++) {
-          // console.log(
-          //   levels[parseInt(num1) - 1][i],
-          //   blockData[v],
-          //   levels[parseInt(num2) - 1][j],
-          //   blockData2[k]
-          // );
-          // console.log("BLOCK TARGET: ", blockData[Object.keys(blockData)[v]]);
-          // console.log(
-          //   levels[parseInt(num1) - 1][i],
-          //   levels[parseInt(num2) - 1][j],
-          //   "\n",
-          //   blockData[Object.keys(blockData)[v]]["subject"],
-          //   blockData[Object.keys(blockData)[v]]["start"],
-          //   blockData[Object.keys(blockData)[v]]["end"],
-          //   blockData2[Object.keys(blockData2)[k]]["subject"],
-          //   blockData2[Object.keys(blockData2)[k]]["start"],
-          //   blockData2[Object.keys(blockData2)[k]]["end"],
-          //   "\n",
-          //   k,
-          //   blockData[Object.keys(blockData)[v]]["start"] >=
-          //     blockData2[Object.keys(blockData2)[k]]["start"] &&
-          //     blockData[Object.keys(blockData)[v]]["end"] >=
-          //       blockData2[Object.keys(blockData2)[k]]["end"]
-          // );
           if (
             blockData[Object.keys(blockData)[v]]["day"] !=
             blockData2[Object.keys(blockData2)[k]]["day"]
           ) {
-            // console.log(
-            //   "not same day!",
-            //   blockData,
-            //   blockData[Object.keys(blockData)[v]]["subject"],
-            //   blockData[Object.keys(blockData)[v]]["day"],
-            //   blockData2[Object.keys(blockData2)[k]]["subject"],
-            //   blockData2[Object.keys(blockData2)[k]]["day"]
-            // );
             continue;
           }
           if (
-            blockData[Object.keys(blockData)[v]]["start"] <=
+            (blockData[Object.keys(blockData)[v]]["start"] <=
               blockData2[Object.keys(blockData2)[k]]["start"] &&
-            blockData[Object.keys(blockData)[v]]["end"] >=
-              blockData2[Object.keys(blockData2)[k]]["end"]
+              blockData[Object.keys(blockData)[v]]["end"] >=
+                blockData2[Object.keys(blockData2)[k]]["end"]) ||
+            blockData[Object.keys(blockData)[v]]["end"] >
+              blockData2[Object.keys(blockData2)[k]]["start"]
+            //   &&
+            // blockData[Object.keys(blockData)[v]]["end"] < // here
+            //   blockData2[Object.keys(blockData2)[k]]["start"]
           ) {
-            // console.log(
-            //   blockCombinations[
-            //     levels[parseInt(num1) - 1][i] +
-            //       "+" +
-            //       levels[parseInt(num2) - 1][j]
-            //   ]
-            // );
             blockCombinations[
               levels[parseInt(num1) - 1][i] +
                 "+" +
@@ -365,11 +330,6 @@ const blocksCompatibility = (num1, num2) => {
               blockData[Object.keys(blockData)[v]]["subject"],
               blockData2[Object.keys(blockData2)[k]]["subject"],
             ]);
-            // console.log(
-            //   "pushed: ",
-            //   blockData[Object.keys(blockData)[v]]["subject"],
-            //   blockData2[Object.keys(blockData2)[k]]["subject"]
-            // );
           }
         }
       }
@@ -495,5 +455,5 @@ const analyzeData = () => {
 
 // TODO:
 // 1. organize gui -> do design (sidebar and shit)
-// 2. display schedules with no conflicts
+// 2. fix bug where conflict is not detected when schedules are after another (block)
 // 3. indicate the of the subjects that conflicts each other
