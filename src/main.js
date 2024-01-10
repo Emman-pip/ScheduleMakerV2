@@ -1,6 +1,8 @@
 const clearSched = () => {
   const row = document.querySelectorAll('[class^="time-"]');
   row.forEach((e) => {
+    e.style.backgroundColor = "white";
+    // e.style.color = "white";
     e.textContent = "";
   });
 };
@@ -135,8 +137,17 @@ const DOMStuff = () => {
       target.forEach((e) => {
         // console.log("start:", start, "end", end);
         if (i >= start && i <= end - 1) {
-          e.textContent = subject;
           e.style.color = "red";
+          if (e.textContent !== "") {
+            e.style.backgroundColor = "red";
+            e.style.color = "white";
+          }
+          if (e.textContent !== subject && e.textContent !== "") {
+            e.textContent = e.textContent + ", " + subject;
+          }
+          if (e.textContent === "") {
+            e.textContent = subject;
+          }
           // e.style.outline = "none";
         }
         i++;
@@ -444,18 +455,16 @@ const resultsGUI = (data) => {
       list.appendChild(listItem);
     }
 
-    if (Object.keys(data[item]).length < 1) {
-      const btnSeeSched = document.createElement("div");
-      btnSeeSched.textContent = "See schedule";
-      btnSeeSched.classList.add("btnSeeSched");
-      btnSeeSched.addEventListener("click", (e) => {
-        const data = JSON.parse(localStorage.getItem("folders"));
-        // console.log("item: ", data[item.split("+")[0]]);
-        generateNewSchedule(item.split("+")[0], item.split("+")[1]);
-        // generateNewSchedule()
-      });
-      conflicts.appendChild(btnSeeSched);
-    }
+    const btnSeeSched = document.createElement("div");
+    btnSeeSched.textContent = "See schedule";
+    btnSeeSched.classList.add("btnSeeSched");
+    btnSeeSched.addEventListener("click", (e) => {
+      const data = JSON.parse(localStorage.getItem("folders"));
+      // console.log("item: ", data[item.split("+")[0]]);
+      generateNewSchedule(item.split("+")[0], item.split("+")[1]);
+      // generateNewSchedule()
+    });
+    conflicts.appendChild(btnSeeSched);
 
     tr.appendChild(combinationName);
     tr.appendChild(numberOfConflicts);
