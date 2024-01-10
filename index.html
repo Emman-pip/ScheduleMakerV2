@@ -156,70 +156,72 @@
             <td class="time-sun"></td>
           </tr>
         </table>
-        <div class="bottom">
+      </section>
+      <sub>
+        <section class="bottom">
           <div class="block">
             <label for="className">Block name: </label>
             <input class="className" type="text" />
           </div>
           <div class="saveRecord">Save</div>
-        </div>
-      </section>
+        </section>
+        <section class="subjects">
+          <div class="title">Subjects</div>
+          <div class="subjectsForm">
+            <label for="yearlevel">Year Level: </label>
+            <select name="yearlevel" id="yearlevel">
+              <option value="first">1</option>
+              <option value="second">2</option>
+            </select>
+            <label for="day">Day</label>
+            <select name="day" id="day">
+              <option value="mon">Monday</option>
+              <option value="tue">Tuesday</option>
+              <option value="wed">Wednesday</option>
+              <option value="thu">Thursday</option>
+              <option value="fri">Friday</option>
+              <option value="sat">Saturday</option>
+              <option value="sun">Sunday</option>
+            </select>
+            <label for="subject">Subject</label>
+            <select name="subject" id="subject"></select>
 
-      <section class="subjects">
-        <div class="title">Subjects</div>
-        <div class="subjectsForm">
-          <label for="yearlevel">Year Level: </label>
-          <select name="yearlevel" id="yearlevel">
-            <option value="first">1</option>
-            <option value="second">2</option>
-          </select>
-          <label for="day">Day</label>
-          <select name="day" id="day">
-            <option value="mon">Monday</option>
-            <option value="tue">Tuesday</option>
-            <option value="wed">Wednesday</option>
-            <option value="thu">Thursday</option>
-            <option value="fri">Friday</option>
-            <option value="sat">Saturday</option>
-            <option value="sun">Sunday</option>
-          </select>
-          <label for="subject">Subject</label>
-          <select name="subject" id="subject"></select>
+            <label for="start">Start</label>
+            <select name="start" id="start"></select>
 
-          <label for="start">Start</label>
-          <select name="start" id="start"></select>
+            <label for="end">End</label>
+            <select name="end" id="end"></select>
+            <div class="addSubject">Add subject</div>
+          </div>
+        </section>
 
-          <label for="end">End</label>
-          <select name="end" id="end"></select>
-          <div class="addSubject">Add subject</div>
-        </div>
-      </section>
-
-      <section class="records">
-        <div class="recordsTitle">Records</div>
-        <div class="currentRecords">
-          <div class="blocks"><p>No Records yet</p></div>
-        </div>
-      </section>
-      <section class="analyzeSection">
-        <div class="analyze">
-          <label for="levels1">Year level:</label>
-          <select name="levels" id="levels1">
-            <option value="1">First</option>
-            <option value="2">Second</option>
-            <option value="3">Third</option>
-            <option value="4">Fourth</option>
-          </select>
-          <label for="levels2">Year level:</label>
-          <select name="levels2" id="levels2">
-            <option value="1">First</option>
-            <option value="2" selected>Second</option>
-            <option value="3">Third</option>
-            <option value="4">Fourth</option>
-          </select>
-        </div>
-        <div class="analyzeBtn">ANALYZE SCHEDS BETWEEN</div>
-      </section>
+        <section class="records">
+          <div class="recordsTitle">Records</div>
+          <div class="currentRecords">
+            <div class="blocks"><p>No Records yet</p></div>
+          </div>
+        </section>
+        <section class="analyzeSection">
+          <div class="analyzeTitle">Search for conflicts</div>
+          <div class="analyze">
+            <label for="levels1">Year level:</label>
+            <select name="levels" id="levels1">
+              <option value="1">First</option>
+              <option value="2">Second</option>
+              <option value="3">Third</option>
+              <option value="4">Fourth</option>
+            </select>
+            <label for="levels2">Year level:</label>
+            <select name="levels2" id="levels2">
+              <option value="1">First</option>
+              <option value="2" selected>Second</option>
+              <option value="3">Third</option>
+              <option value="4">Fourth</option>
+            </select>
+          </div>
+          <div class="analyzeBtn">ANALYZE SCHEDS BETWEEN</div>
+        </section>
+      </sub>
     </main>
     <section class="results"></section>
   </body>

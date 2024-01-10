@@ -22,7 +22,7 @@ const DOMStuff = () => {
       ) {
         console.log("conflict");
         alert(keys[i]["subject"] + " was replaced by " + data["subject"]);
-        obj[i] = data;
+        obj[Object.keys(obj)[i]] = data;
         return false;
       }
     }
@@ -44,7 +44,7 @@ const DOMStuff = () => {
         container.style.alignItems = "center";
         container.style.gap = "0.2rem";
         container.style.padding = "0.3rem";
-        container.style.outline = "1px solid black";
+        container.style.border = "1px solid black";
         const newElement = document.createElement("div");
         newElement.classList.add("blockName");
         newElement.textContent = e;
@@ -391,12 +391,14 @@ const resultsGUI = (data) => {
       color = "green";
     }
     const combinationName = document.createElement("td");
+
     combinationName.textContent = item;
     const numberOfConflicts = document.createElement("td");
     numberOfConflicts.textContent = data[item].length;
     numberOfConflicts.style.backgroundColor = color;
     const conflicts = document.createElement("td");
     const list = document.createElement("ul");
+    list.style.listStylePosition = "inside";
     conflicts.appendChild(list);
 
     for (let i = 0; i < Object.keys(data[item]).length; i++) {
@@ -434,7 +436,4 @@ const analyzeData = () => {
 
 // TODO:
 // 1. organize gui -> do design (sidebar and shit)
-// 2. logic for conflicts between schedules
-// notes:
-//   the function should do a string check to section name to know year level and compare each other
-//   results should be organized in the following order: least conflict first
+// 2. display schedules with no conflicts

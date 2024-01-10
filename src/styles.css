@@ -89,12 +89,7 @@ main {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-
-.records {
-  max-height: 10rem;
-  overflow-y: scroll;
-  padding: 1rem;
+  gap: 1rem;
 }
 
 .blocks {
@@ -148,4 +143,26 @@ div:has(.blockName) {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+}
+
+sub > section {
+  padding-top: 1rem;
+  /* padding-bottom: 1rem; */
+}
+
+.analyzeTitle {
+  font-weight: 500;
+}
+
+.records {
+  max-height: 10rem;
+  overflow-y: scroll;
+  padding: 0;
+}
+
+.recordsTitle {
+  position: sticky;
+  top: 0;
+  font-weight: 500;
+  background-color: white;
 }
