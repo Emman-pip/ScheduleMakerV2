@@ -276,34 +276,76 @@ const blocksCompatibility = (num1, num2) => {
     if (e[0] == num1 || e[0] == num2) levels[parseInt(e[0]) - 1].push(e);
   });
 
-  console.log(data);
+  // console.log(data);
   // storage for conflicted data here.
   const blockCombinations = {};
   for (let i = 0; i < levels[parseInt(num1) - 1].length; i++) {
     const blockData = data[levels[parseInt(num1) - 1][i]];
     for (let v = 0; v < Object.keys(blockData).length; v++) {
-      console.log("blockdata", blockData[v]);
+      // console.log("blockdata", blockData[v]);
       for (let j = 0; j < levels[parseInt(num2) - 1].length; j++) {
         const blockData2 = data[levels[parseInt(num2) - 1][j]];
-        blockCombinations[
-          levels[parseInt(num1) - 1][i] + "+" + levels[parseInt(num2) - 1][j]
-        ] = [];
+        if (
+          blockCombinations[
+            levels[parseInt(num1) - 1][i] + "+" + levels[parseInt(num2) - 1][j]
+          ] === undefined
+        ) {
+          blockCombinations[
+            levels[parseInt(num1) - 1][i] + "+" + levels[parseInt(num2) - 1][j]
+          ] = [];
+        }
         for (let k = 0; k < Object.keys(blockData2).length; k++) {
+          // console.log(
+          //   levels[parseInt(num1) - 1][i],
+          //   blockData[v],
+          //   levels[parseInt(num2) - 1][j],
+          //   blockData2[k]
+          // );
+          // console.log("BLOCK TARGET: ", blockData[Object.keys(blockData)[v]]);
           console.log(
             levels[parseInt(num1) - 1][i],
-            blockData[v],
             levels[parseInt(num2) - 1][j],
-            blockData2[k]
+            "\n",
+            blockData[Object.keys(blockData)[v]]["subject"],
+            blockData[Object.keys(blockData)[v]]["start"],
+            blockData[Object.keys(blockData)[v]]["end"],
+            blockData2[Object.keys(blockData2)[k]]["subject"],
+            blockData2[Object.keys(blockData2)[k]]["start"],
+            blockData2[Object.keys(blockData2)[k]]["end"],
+            "\n",
+            k,
+            blockData[Object.keys(blockData)[v]]["start"] >=
+              blockData2[Object.keys(blockData2)[k]]["start"] &&
+              blockData[Object.keys(blockData)[v]]["end"] >=
+                blockData2[Object.keys(blockData2)[k]]["end"]
           );
-          console.log("BLOCK TARGET: ", blockData[Object.keys(blockData)[v]]);
           if (
-            blockData[Object.keys(blockData)[v]]["day"] ===
-              blockData2[Object.keys(blockData2)[k]]["day"] &&
-            blockData[Object.keys(blockData)[v]]["day"] >=
-              blockData2[Object.keys(blockData2)[k]]["day"] &&
-            blockData[Object.keys(blockData)[v]]["day"] >=
-              blockData2[Object.keys(blockData2)[k]]["day"]
+            blockData[Object.keys(blockData)[v]]["day"] !=
+            blockData2[Object.keys(blockData2)[k]]["day"]
           ) {
+            console.log(
+              "not same day!",
+              blockData,
+              blockData[Object.keys(blockData)[v]]["subject"],
+              blockData[Object.keys(blockData)[v]]["day"],
+              blockData2[Object.keys(blockData2)[k]]["subject"],
+              blockData2[Object.keys(blockData2)[k]]["day"]
+            );
+            continue;
+          }
+          if (
+            blockData[Object.keys(blockData)[v]]["start"] <=
+              blockData2[Object.keys(blockData2)[k]]["start"] &&
+            blockData[Object.keys(blockData)[v]]["end"] >=
+              blockData2[Object.keys(blockData2)[k]]["end"]
+          ) {
+            console.log(
+              blockCombinations[
+                levels[parseInt(num1) - 1][i] +
+                  "+" +
+                  levels[parseInt(num2) - 1][j]
+              ]
+            );
             blockCombinations[
               levels[parseInt(num1) - 1][i] +
                 "+" +
@@ -312,14 +354,74 @@ const blocksCompatibility = (num1, num2) => {
               blockData[Object.keys(blockData)[v]]["subject"],
               blockData2[Object.keys(blockData2)[k]]["subject"],
             ]);
+            console.log(
+              "pushed: ",
+              blockData[Object.keys(blockData)[v]]["subject"],
+              blockData2[Object.keys(blockData2)[k]]["subject"]
+            );
           }
         }
       }
     }
   }
   // computation happens here, all data is sorted'
-  console.log("ANALYZED: ", blockCombinations);
-  localStorage.setItem("analyzedData", JSON.stringify(blockCombinations));
+  // console.log("ANALYZED: ", blockCombinations);
+  return blockCombinations;
+  // localStorage.setItem("analyzedData", JSON.stringify(blockCombinations));
+};
+
+const resultsGUI = (data) => {
+  const target = document.querySelector(".results");
+  target.innerHTML = "";
+  const keys = Object.keys(data);
+  const table = document.createElement("table");
+  const headRow = document.createElement("tr");
+  table.appendChild(headRow);
+  const headers = ["Combination", "Number of conflicts", "conflicts"];
+  for (let i = 0; i < headers.length; i++) {
+    const th = document.createElement("th");
+    th.textContent = headers[i];
+    headRow.appendChild(th);
+  }
+  keys.forEach((item) => {
+    const tr = document.createElement("tr");
+
+    let color = "white";
+    if (data[item].length === 0) {
+      color = "green";
+    }
+    const combinationName = document.createElement("td");
+    combinationName.textContent = item;
+    const numberOfConflicts = document.createElement("td");
+    numberOfConflicts.textContent = data[item].length;
+    numberOfConflicts.style.backgroundColor = color;
+    const conflicts = document.createElement("td");
+    const list = document.createElement("ul");
+    conflicts.appendChild(list);
+
+    for (let i = 0; i < Object.keys(data[item]).length; i++) {
+      const listItem = document.createElement("li");
+      listItem.textContent = data[item][i][0] + " and " + data[item][i][1];
+      list.appendChild(listItem);
+    }
+
+    tr.appendChild(combinationName);
+    tr.appendChild(numberOfConflicts);
+    tr.appendChild(conflicts);
+    table.appendChild(tr);
+  });
+  target.appendChild(table);
+};
+
+const analyzeData = () => {
+  const btn = document.querySelector(".analyzeBtn");
+  btn.addEventListener("click", (e) => {
+    const level1 = document.getElementById("levels1");
+    const level2 = document.getElementById("levels2");
+    const data = blocksCompatibility(level1.value, level2.value);
+    console.log(data);
+    resultsGUI(data);
+  });
 };
 
 (() => {
@@ -327,7 +429,7 @@ const blocksCompatibility = (num1, num2) => {
   obj.addSchedMethod();
   obj.init();
   obj.unifySched();
-  blocksCompatibility("1", "2");
+  analyzeData();
 })();
 
 // TODO:

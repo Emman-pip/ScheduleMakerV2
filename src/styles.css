@@ -81,7 +81,8 @@ main {
 }
 
 main {
-  height: 100dvh;
+  min-height: 100dvh;
+  padding: 1rem;
 }
 
 .bottom {
@@ -138,6 +139,12 @@ div:has(.blockName) {
 }
 
 .analyzeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.results {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
