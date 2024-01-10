@@ -166,3 +166,12 @@ sub > section {
   font-weight: 500;
   background-color: white;
 }
+
+.btnSeeSched {
+  background-color: var(--color2);
+  padding: 1rem;
+  color: white;
+  border-radius: 0.3rem;
+  width: fit-content;
+  cursor: pointer;
+}

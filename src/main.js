@@ -128,7 +128,7 @@ const DOMStuff = () => {
     },
     // dapat dito ay mag derive ng display from temp object
     fillSpace(day, subject = null, start = null, end = null, block = null) {
-      const btn = document.querySelector(".addSubject");
+      // const btn = document.querySelector(".addSubject");
       const target = document.querySelectorAll(".time-" + day);
 
       let i = 1;
@@ -371,6 +371,43 @@ const blocksCompatibility = (num1, num2) => {
 };
 
 const resultsGUI = (data) => {
+  const generateNewSchedule = (data1, data2) => {
+    const storageData = JSON.parse(localStorage.getItem("folders"));
+    const block1 = storageData[data1];
+    const block2 = storageData[data2];
+    const data1Keys = Object.keys(block1);
+    const data2Keys = Object.keys(block2);
+    clearSched();
+    for (let i = 0; i < data1Keys.length; i++) {
+      console.log(storageData);
+      console.log("HEREE: ", block1[data1Keys[0]]);
+      DOMStuff().fillSpace(
+        block1[data1Keys[i]]["day"],
+        block1[data1Keys[i]]["subject"],
+        block1[data1Keys[i]]["start"],
+        block1[data1Keys[i]]["end"]
+      );
+      console.log("KEETTSS: ", Object.keys(data1)[i]);
+    }
+
+    for (let i = 0; i < data2Keys.length; i++) {
+      console.log(storageData);
+      console.log("HEREE: ", block2[data2Keys[0]]);
+      DOMStuff().fillSpace(
+        block2[data2Keys[i]]["day"],
+        block2[data2Keys[i]]["subject"],
+        block2[data2Keys[i]]["start"],
+        block2[data2Keys[i]]["end"]
+      );
+      console.log("KEETTSS: ", Object.keys(data1)[i]);
+    }
+
+    // Object.keys(data2).forEach((e) => {
+    //   DOMStuff().fillSpace(e["day"], e["subject"], e["start"], e["end"]);
+    //   console.log("data2: ", e["day"], e["subject"], e["start"], e["end"]);
+    // });
+    console.log("refilled");
+  };
   const target = document.querySelector(".results");
   target.innerHTML = "";
   const keys = Object.keys(data);
@@ -407,6 +444,19 @@ const resultsGUI = (data) => {
       list.appendChild(listItem);
     }
 
+    if (Object.keys(data[item]).length < 1) {
+      const btnSeeSched = document.createElement("div");
+      btnSeeSched.textContent = "See schedule";
+      btnSeeSched.classList.add("btnSeeSched");
+      btnSeeSched.addEventListener("click", (e) => {
+        const data = JSON.parse(localStorage.getItem("folders"));
+        // console.log("item: ", data[item.split("+")[0]]);
+        generateNewSchedule(item.split("+")[0], item.split("+")[1]);
+        // generateNewSchedule()
+      });
+      conflicts.appendChild(btnSeeSched);
+    }
+
     tr.appendChild(combinationName);
     tr.appendChild(numberOfConflicts);
     tr.appendChild(conflicts);
@@ -437,3 +487,4 @@ const analyzeData = () => {
 // TODO:
 // 1. organize gui -> do design (sidebar and shit)
 // 2. display schedules with no conflicts
+// 3. indicate the of the subjects that conflicts each other
