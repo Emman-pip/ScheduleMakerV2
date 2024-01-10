@@ -302,35 +302,35 @@ const blocksCompatibility = (num1, num2) => {
           //   blockData2[k]
           // );
           // console.log("BLOCK TARGET: ", blockData[Object.keys(blockData)[v]]);
-          console.log(
-            levels[parseInt(num1) - 1][i],
-            levels[parseInt(num2) - 1][j],
-            "\n",
-            blockData[Object.keys(blockData)[v]]["subject"],
-            blockData[Object.keys(blockData)[v]]["start"],
-            blockData[Object.keys(blockData)[v]]["end"],
-            blockData2[Object.keys(blockData2)[k]]["subject"],
-            blockData2[Object.keys(blockData2)[k]]["start"],
-            blockData2[Object.keys(blockData2)[k]]["end"],
-            "\n",
-            k,
-            blockData[Object.keys(blockData)[v]]["start"] >=
-              blockData2[Object.keys(blockData2)[k]]["start"] &&
-              blockData[Object.keys(blockData)[v]]["end"] >=
-                blockData2[Object.keys(blockData2)[k]]["end"]
-          );
+          // console.log(
+          //   levels[parseInt(num1) - 1][i],
+          //   levels[parseInt(num2) - 1][j],
+          //   "\n",
+          //   blockData[Object.keys(blockData)[v]]["subject"],
+          //   blockData[Object.keys(blockData)[v]]["start"],
+          //   blockData[Object.keys(blockData)[v]]["end"],
+          //   blockData2[Object.keys(blockData2)[k]]["subject"],
+          //   blockData2[Object.keys(blockData2)[k]]["start"],
+          //   blockData2[Object.keys(blockData2)[k]]["end"],
+          //   "\n",
+          //   k,
+          //   blockData[Object.keys(blockData)[v]]["start"] >=
+          //     blockData2[Object.keys(blockData2)[k]]["start"] &&
+          //     blockData[Object.keys(blockData)[v]]["end"] >=
+          //       blockData2[Object.keys(blockData2)[k]]["end"]
+          // );
           if (
             blockData[Object.keys(blockData)[v]]["day"] !=
             blockData2[Object.keys(blockData2)[k]]["day"]
           ) {
-            console.log(
-              "not same day!",
-              blockData,
-              blockData[Object.keys(blockData)[v]]["subject"],
-              blockData[Object.keys(blockData)[v]]["day"],
-              blockData2[Object.keys(blockData2)[k]]["subject"],
-              blockData2[Object.keys(blockData2)[k]]["day"]
-            );
+            // console.log(
+            //   "not same day!",
+            //   blockData,
+            //   blockData[Object.keys(blockData)[v]]["subject"],
+            //   blockData[Object.keys(blockData)[v]]["day"],
+            //   blockData2[Object.keys(blockData2)[k]]["subject"],
+            //   blockData2[Object.keys(blockData2)[k]]["day"]
+            // );
             continue;
           }
           if (
@@ -339,13 +339,13 @@ const blocksCompatibility = (num1, num2) => {
             blockData[Object.keys(blockData)[v]]["end"] >=
               blockData2[Object.keys(blockData2)[k]]["end"]
           ) {
-            console.log(
-              blockCombinations[
-                levels[parseInt(num1) - 1][i] +
-                  "+" +
-                  levels[parseInt(num2) - 1][j]
-              ]
-            );
+            // console.log(
+            //   blockCombinations[
+            //     levels[parseInt(num1) - 1][i] +
+            //       "+" +
+            //       levels[parseInt(num2) - 1][j]
+            //   ]
+            // );
             blockCombinations[
               levels[parseInt(num1) - 1][i] +
                 "+" +
@@ -354,11 +354,11 @@ const blocksCompatibility = (num1, num2) => {
               blockData[Object.keys(blockData)[v]]["subject"],
               blockData2[Object.keys(blockData2)[k]]["subject"],
             ]);
-            console.log(
-              "pushed: ",
-              blockData[Object.keys(blockData)[v]]["subject"],
-              blockData2[Object.keys(blockData2)[k]]["subject"]
-            );
+            // console.log(
+            //   "pushed: ",
+            //   blockData[Object.keys(blockData)[v]]["subject"],
+            //   blockData2[Object.keys(blockData2)[k]]["subject"]
+            // );
           }
         }
       }
