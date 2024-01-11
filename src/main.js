@@ -226,6 +226,8 @@ const tempStorage = () => {
       this.gui.time("#end");
       this.gui.updateRecords();
       this.gui.displayRecords();
+      this.clearTable();
+      this.undo();
     },
     data: {},
     localStr: StorageObj(),
@@ -247,6 +249,20 @@ const tempStorage = () => {
         clearSched();
         this.gui.updateRecords();
         this.gui.displayRecords();
+      });
+    },
+    clearTable() {
+      document.querySelector(".clearSubjects").addEventListener("click", () => {
+        this.clearData();
+        clearSched();
+      });
+    },
+    undo() {
+      document.querySelector(".undo").addEventListener("click", () => {
+        delete this.data[
+          Object.keys(this.data)[Object.keys(this.data).length - 1]
+        ];
+        this.gui.refreshData(this.data);
       });
     },
   };
@@ -467,6 +483,4 @@ const clickOnHead = () => {
 })();
 
 // TODO:
-// 1. organize gui -> do design (sidebar and shit)
 // 2. add a clear button
-// 3. indicate the time of the subjects that conflicts each other

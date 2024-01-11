@@ -102,19 +102,32 @@ select {
   font-weight: 500;
 }
 
-.addSubject {
+.subjectBtns {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.addSubject,
+.clearSubjects,
+.undo {
   padding: 0.5rem;
   color: black;
   background-color: var(--color2);
   width: fit-content;
   border-radius: 0.3rem;
-  grid-column: 2;
   cursor: pointer;
   border: 1px solid black;
   transition: background-color 1s;
 }
 
-.addSubject:hover {
+.addSubject:hover,
+.clearSubjects:hover,
+.undo:hover {
   background-color: var(--color3);
 }
 
