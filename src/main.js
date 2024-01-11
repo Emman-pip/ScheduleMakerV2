@@ -367,21 +367,21 @@ const resultsGUI = (data) => {
 
     for (let i = 0; i < data2Keys.length; i++) {
       console.log(storageData);
-      console.log("HEREE: ", block2[data2Keys[0]]);
+      // console.log("HEREE: ", block2[data2Keys[0]]);
       DOMStuff().fillSpace(
         block2[data2Keys[i]]["day"],
         block2[data2Keys[i]]["subject"],
         block2[data2Keys[i]]["start"],
         block2[data2Keys[i]]["end"]
       );
-      console.log("KEETTSS: ", Object.keys(data1)[i]);
+      // console.log("KEETTSS: ", Object.keys(data1)[i]);
     }
 
     // Object.keys(data2).forEach((e) => {
     //   DOMStuff().fillSpace(e["day"], e["subject"], e["start"], e["end"]);
     //   console.log("data2: ", e["day"], e["subject"], e["start"], e["end"]);
     // });
-    console.log("refilled");
+    // console.log("refilled");
   };
   const target = document.querySelector(".results");
   target.innerHTML = "";
