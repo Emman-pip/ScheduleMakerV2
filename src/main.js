@@ -468,5 +468,5 @@ const clickOnHead = () => {
 
 // TODO:
 // 1. organize gui -> do design (sidebar and shit)
-// 2. fix bug where conflict
-// 3. indicate the of the subjects that conflicts each other
+// 2. add a clear button
+// 3. indicate the time of the subjects that conflicts each other

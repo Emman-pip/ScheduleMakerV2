@@ -94,6 +94,14 @@ select {
   gap: 0.2rem;
 }
 
+.block > label {
+  font-weight: 500;
+}
+
+.subjects > .title {
+  font-weight: 500;
+}
+
 .addSubject {
   padding: 0.5rem;
   color: black;
@@ -162,6 +170,7 @@ div:has(.blockName) {
 .analyze {
   display: grid;
   grid-template-columns: auto auto;
+  gap: 0.3rem;
 }
 
 .analyzeBtn {
@@ -209,7 +218,8 @@ sub > section {
   position: sticky;
   top: 0;
   font-weight: 500;
-  background-color: white;
+  background-color: var(--primary);
+  padding: 0.3rem;
 }
 
 .btnSeeSched {
@@ -234,6 +244,17 @@ nav {
   flex-wrap: wrap;
 }
 
+nav > h1 {
+  text-shadow: 1px 1px 0 var(--primary), 2px 2px 0 var(--color3),
+    1px 1px 0 var(--color3);
+}
+
+nav > h1 > span {
+  transform: rotate(30deg);
+  font-family: cursive;
+  font-weight: 50;
+}
+
 .madeBy {
   display: flex;
   align-items: center;
@@ -253,4 +274,6 @@ nav {
   background-color: #8685ef;
   padding: 0.5rem;
   text-align: center;
+  position: sticky;
+  left: 0;
 }
