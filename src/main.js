@@ -311,16 +311,18 @@ const blocksCompatibility = (num1, num2) => {
           ) {
             continue;
           }
+          const blockData1Shortened = blockData[Object.keys(blockData)[v]];
+          const blockData2Shortened = blockData2[Object.keys(blockData2)[k]];
           if (
-            (blockData[Object.keys(blockData)[v]]["start"] <=
-              blockData2[Object.keys(blockData2)[k]]["start"] &&
-              blockData[Object.keys(blockData)[v]]["end"] >=
-                blockData2[Object.keys(blockData2)[k]]["end"]) ||
-            blockData[Object.keys(blockData)[v]]["end"] >
-              blockData2[Object.keys(blockData2)[k]]["start"]
-            //   &&
-            // blockData[Object.keys(blockData)[v]]["end"] < // here
-            //   blockData2[Object.keys(blockData2)[k]]["start"]
+            (blockData1Shortened["start"] <= blockData2Shortened["start"] &&
+              blockData1Shortened["end"] - 1 >=
+                blockData2Shortened["start"] + 1) ||
+            (blockData2Shortened["start"] <= blockData1Shortened["start"] &&
+              blockData2Shortened["end"] - 1 >= blockData1Shortened["start"]) ||
+            (blockData1Shortened["start"] <= blockData2Shortened["start"] &&
+              blockData1Shortened["end"] > blockData2Shortened["start"]) ||
+            (blockData2Shortened["start"] <= blockData1Shortened["start"] &&
+              blockData2Shortened["end"] > blockData1Shortened["start"])
           ) {
             blockCombinations[
               levels[parseInt(num1) - 1][i] +
@@ -335,10 +337,7 @@ const blocksCompatibility = (num1, num2) => {
       }
     }
   }
-  // computation happens here, all data is sorted'
-  // console.log("ANALYZED: ", blockCombinations);
   return blockCombinations;
-  // localStorage.setItem("analyzedData", JSON.stringify(blockCombinations));
 };
 
 const resultsGUI = (data) => {
@@ -422,6 +421,7 @@ const resultsGUI = (data) => {
       const data = JSON.parse(localStorage.getItem("folders"));
       // console.log("item: ", data[item.split("+")[0]]);
       generateNewSchedule(item.split("+")[0], item.split("+")[1]);
+      changeTitle(item);
       // generateNewSchedule()
     });
     conflicts.appendChild(btnSeeSched);
@@ -455,5 +455,5 @@ const analyzeData = () => {
 
 // TODO:
 // 1. organize gui -> do design (sidebar and shit)
-// 2. fix bug where conflict is not detected when schedules are after another (block)
+// 2. fix bug where conflict
 // 3. indicate the of the subjects that conflicts each other
