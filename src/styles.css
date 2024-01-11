@@ -5,6 +5,7 @@
   --primary: #faf8ff;
   --color1: #8685ef;
   --color2: #e3e0f3;
+  --semi-transparent-purple: #8785ef81;
   /* --color3: ""; */
   --color3: #948aca;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -228,10 +229,7 @@ sub > section {
 }
 
 .recordsTitle {
-  position: sticky;
-  top: 0;
   font-weight: 500;
-  background-color: var(--primary);
   padding: 0.3rem;
 }
 
@@ -289,4 +287,17 @@ nav > h1 > span {
   text-align: center;
   position: sticky;
   left: 0;
+}
+
+sub {
+  background-color: var(--semi-transparent-purple);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.221);
+  backdrop-filter: blur(10px);
+}
+
+html {
+  min-height: 100lvh;
+  background: linear-gradient(to top left, var(--color2), var(--primary));
 }
