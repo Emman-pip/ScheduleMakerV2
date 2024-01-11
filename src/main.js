@@ -422,6 +422,8 @@ const resultsGUI = (data) => {
       // console.log("item: ", data[item.split("+")[0]]);
       generateNewSchedule(item.split("+")[0], item.split("+")[1]);
       changeTitle(item);
+      window.scrollTo(null, 0);
+
       // generateNewSchedule()
     });
     conflicts.appendChild(btnSeeSched);
