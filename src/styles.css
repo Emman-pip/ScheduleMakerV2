@@ -2,17 +2,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  --color1: #845ec2;
-  --color2: #ad5e00;
-  --color3: #008c82;
+  --primary: #faf8ff;
+  --color1: #8685ef;
+  --color2: #e3e0f3;
+  /* --color3: ""; */
+  --color3: #948aca;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+html {
+  background-color: var(--primary);
 }
 
 nav {
   background-color: var(--color1);
   padding: 1rem;
-  color: white;
 }
 
 tr,
@@ -23,6 +28,7 @@ td {
 
 th {
   padding: 0.8rem;
+  background-color: var(--color2);
 }
 
 td {
@@ -35,6 +41,7 @@ td {
   scrollbar-width: 0;
   padding-bottom: 0.3rem;
   padding: 1rem;
+  /* background-color: var(--color3); */
 }
 
 main {
@@ -45,14 +52,31 @@ main {
   gap: 1rem;
 }
 
+select {
+  background-color: var(--color2);
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.1rem;
+  border: 1px solid var(--color3);
+}
+
+/* input[type="text"]:focus {
+  border-color: var(--color3);
+} */
+
 .saveRecord {
   background-color: var(--color2);
-  color: white;
+  color: black;
   border-radius: 0.2rem;
   padding: 0.4rem;
   width: fit-content;
-  border: 1px solid black;
   cursor: pointer;
+  border: 1px solid black;
+  transform: background-color 1s;
+}
+
+.saveRecord:hover {
+  background-color: var(--color3);
 }
 
 .sub {
@@ -72,16 +96,22 @@ main {
 
 .addSubject {
   padding: 0.5rem;
-  color: white;
+  color: black;
   background-color: var(--color2);
   width: fit-content;
   border-radius: 0.3rem;
   grid-column: 2;
   cursor: pointer;
+  border: 1px solid black;
+  transition: background-color 1s;
+}
+
+.addSubject:hover {
+  background-color: var(--color3);
 }
 
 main {
-  min-height: 100lvh;
+  min-height: max(fit-content, 80lvh);
   padding: 1rem;
 }
 
@@ -99,11 +129,20 @@ main {
   gap: 0.4rem;
 }
 
+.recordsContainer {
+  background-color: var(--color2);
+  transition: background-color 1s;
+}
+
+.recordsContainer:hover {
+  background-color: var(--color3);
+}
+
 .blockName {
   cursor: pointer;
   outline: 1px solid black;
-  background-color: var(--color3);
-  color: wheat;
+  /* background-color: var(--color3); */
+  color: black;
   padding: 0.3rem;
   border-radius: 0.2rem;
 }
@@ -127,10 +166,16 @@ div:has(.blockName) {
 
 .analyzeBtn {
   background-color: var(--color2);
-  color: white;
+  color: black;
   padding: 0.5rem;
   border-radius: 0.3rem;
   cursor: pointer;
+  outline: 1px solid black;
+  transition: background-color 1s;
+}
+
+.analyzeBtn:hover {
+  background-color: var(--color3);
 }
 
 .analyzeSection {
@@ -170,8 +215,42 @@ sub > section {
 .btnSeeSched {
   background-color: var(--color2);
   padding: 1rem;
-  color: white;
+  color: black;
   border-radius: 0.3rem;
   width: fit-content;
   cursor: pointer;
+  border: 1px solid black;
+  transition: background-color 1s;
+}
+
+.btnSeeSched:hover {
+  background-color: var(--color3);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.madeBy {
+  display: flex;
+  align-items: center;
+  /* justify-content:; */
+  font-size: 0.5rem;
+  font-family: fantasy;
+  width: fit-content;
+}
+
+.github {
+  height: auto;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.name {
+  background-color: #8685ef;
+  padding: 1rem;
+  text-align: center;
 }

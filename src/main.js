@@ -1,7 +1,10 @@
+const primaryColor = "#faf8ff";
+const purpleLight = "#948aca";
+
 const clearSched = () => {
   const row = document.querySelectorAll('[class^="time-"]');
   row.forEach((e) => {
-    e.style.backgroundColor = "white";
+    e.style.backgroundColor = primaryColor;
     // e.style.color = "white";
     e.textContent = "";
   });
@@ -47,6 +50,8 @@ const DOMStuff = () => {
         container.style.gap = "0.2rem";
         container.style.padding = "0.3rem";
         container.style.border = "1px solid black";
+        container.classList.add("recordsContainer");
+        target.style.paddingRight = "0.5rem";
         const newElement = document.createElement("div");
         newElement.classList.add("blockName");
         newElement.textContent = e;
@@ -393,9 +398,9 @@ const resultsGUI = (data) => {
   keys.forEach((item) => {
     const tr = document.createElement("tr");
 
-    let color = "white";
+    let color = primaryColor;
     if (data[item].length === 0) {
-      color = "green";
+      color = purpleLight;
     }
     const combinationName = document.createElement("td");
 
@@ -423,7 +428,6 @@ const resultsGUI = (data) => {
       generateNewSchedule(item.split("+")[0], item.split("+")[1]);
       changeTitle(item);
       window.scrollTo(null, 0);
-
       // generateNewSchedule()
     });
     conflicts.appendChild(btnSeeSched);
@@ -447,12 +451,19 @@ const analyzeData = () => {
   });
 };
 
+const clickOnHead = () => {
+  document.querySelector(".github").addEventListener("click", () => {
+    window.open("https://github.com/Emman-pip");
+  });
+};
+
 (() => {
   const obj = tempStorage();
   obj.addSchedMethod();
   obj.init();
   obj.unifySched();
   analyzeData();
+  clickOnHead();
 })();
 
 // TODO:
