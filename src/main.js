@@ -392,12 +392,6 @@ const resultsGUI = (data) => {
       );
       // console.log("KEETTSS: ", Object.keys(data1)[i]);
     }
-
-    // Object.keys(data2).forEach((e) => {
-    //   DOMStuff().fillSpace(e["day"], e["subject"], e["start"], e["end"]);
-    //   console.log("data2: ", e["day"], e["subject"], e["start"], e["end"]);
-    // });
-    // console.log("refilled");
   };
   const target = document.querySelector(".results");
   target.innerHTML = "";

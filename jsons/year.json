@@ -1,4 +1,37 @@
 {
-  "first": ["Computer Programming", "DSA", "Fili"],
-  "second": ["Database", "IM", "DataAnalysis", "EnvironmentalSci"]
+  "first": [
+    "Computer Programming",
+    "Data structures and algorithms",
+    "Filipino sa Iba't Ibang Disiplina",
+    "Linear Algebra",
+    "Readings in Philippine History",
+    "Science, Technology and Society",
+    "Rhythmic Activities",
+    "National Service Training Program 2"
+  ],
+  "second": [
+    "Information Management",
+    "Computer Networking 2",
+    "Advanced Database Management System",
+    "Data Analysis",
+    "Environmental Sciences",
+    "Purposive Communication",
+    "Understanding the Self",
+    "Team Sports"
+  ],
+  "third": [
+    "Human-computer interaction",
+    "Fundamentals of Business Process Outsourcing 102",
+    "Service Culture",
+    "Advanced System Integration and Architecture",
+    "Information Assurance and Security",
+    "Capstone Project 1",
+    "IT Project Management",
+    "Fundamentals of Enterprise Data Management",
+    "Analytics Techniques & Tools",
+    "Advanced System Integration and Architecture",
+    "Computer Networking 4",
+    "Cloud Computing"
+  ],
+  "fourth": []
 }

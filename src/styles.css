@@ -61,9 +61,9 @@ select {
   border: 1px solid var(--color3);
 }
 
-/* input[type="text"]:focus {
-  border-color: var(--color3);
-} */
+input[type="text"] {
+  padding: 0.3rem;
+}
 
 .saveRecord {
   background-color: var(--color2);
@@ -73,7 +73,7 @@ select {
   width: fit-content;
   cursor: pointer;
   border: 1px solid black;
-  transform: background-color 1s;
+  transition: background-color 1s;
 }
 
 .saveRecord:hover {
