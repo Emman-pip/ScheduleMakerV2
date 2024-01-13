@@ -34,6 +34,26 @@ const DOMStuff = () => {
     return true;
   };
   return {
+    exportData() {
+      document.querySelector(".export").addEventListener("click", () => {
+        const data = localStorage.getItem("folders");
+        // data.select();
+        // data.setSelectionRange(0,99999)
+        navigator.clipboard.writeText(data);
+        alert("Data copied to clipboard");
+      });
+    },
+    importData() {
+      document.querySelector(".importBtn").addEventListener("click", () => {
+        localStorage.setItem(
+          "folders",
+          document.querySelector("#import").value
+        );
+        alert("data imported");
+        document.querySelector("#import").value = "";
+        location.reload();
+      });
+    },
     updateRecords() {
       const data = JSON.parse(localStorage.getItem("folders"));
       if (data === null || Object.keys(data).length === 0) {
@@ -226,6 +246,8 @@ const tempStorage = () => {
       this.gui.time("#end");
       this.gui.updateRecords();
       this.gui.displayRecords();
+      this.gui.exportData();
+      this.gui.importData();
       this.clearTable();
       this.undo();
     },

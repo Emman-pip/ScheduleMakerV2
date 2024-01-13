@@ -301,3 +301,29 @@ html {
   min-height: 100lvh;
   background: linear-gradient(to top left, var(--color2), var(--primary));
 }
+.btnData {
+  padding: 0.3rem;
+  background-color: var(--color3);
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.importExportData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.export {
+  width: fit-content;
+}
+
+.import {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
