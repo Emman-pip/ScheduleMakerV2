@@ -40,16 +40,29 @@ const DOMStuff = () => {
         // data.select();
         // data.setSelectionRange(0,99999)
         navigator.clipboard.writeText(data);
-        alert("Data copied to clipboard");
+        const dataContainer = document.querySelector(".data");
+        dataContainer.style.display = "block";
+        const dataField = document.querySelector(".exportedData");
+        dataField.value = data;
+        alert(
+          "Data copied to clipboard. If not, copy the data inside the textboc below"
+        );
       });
     },
     importData() {
       document.querySelector(".importBtn").addEventListener("click", () => {
+        try {
+          JSON.parse(document.querySelector("#import").value);
+        } catch (e) {
+          alert(e);
+          return;
+        }
         localStorage.setItem(
           "folders",
           document.querySelector("#import").value
         );
         alert("data imported");
+
         document.querySelector("#import").value = "";
         location.reload();
       });

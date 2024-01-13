@@ -327,3 +327,8 @@ html {
   justify-content: center;
   gap: 0.3rem;
 }
+
+.data {
+  display: none;
+  padding: 2rem;
+}
