@@ -56,10 +56,16 @@ const DOMStuff = () => {
         newElement.classList.add("blockName");
         newElement.textContent = e;
         newElement.style.width = "100%";
+
+        const editBtn = document.createElement("div");
+        editBtn.textContent = "Edit";
+        editBtn.classList.add("editBtn");
+
         const btn = document.createElement("div");
         btn.textContent = "❌";
         btn.classList.add("deleteBlock");
         container.appendChild(newElement);
+        container.appendChild(editBtn);
         container.appendChild(btn);
         target.appendChild(container);
         console.log("lol");
@@ -68,6 +74,35 @@ const DOMStuff = () => {
           delete data[e];
           localStorage.setItem("folders", JSON.stringify(data));
           target.removeChild(container);
+        });
+
+        // TODO: HERE
+        const edit = (blockData, add, data) => {
+          console.log("second event");
+          let i = 0;
+          while (Object.keys(blockData).includes(toString(i))) {
+            i++;
+            if (!Object.keys(blockData).includes(toString(i))) {
+              blockData[i]["day"] = document.querySelector("#day").textContent;
+              blockData[i]["subject"] =
+                document.querySelector("#subject").textContent;
+              blockData[i]["start"] =
+                document.querySelector("#start").textContent;
+              blockData[i]["end"] = document.querySelector("#end").textContent;
+            }
+          }
+
+          data[newElement.textContent] = blockData;
+          add.removeEventListener("click", edit);
+          localStorage.setItem("folders", JSON.stringify(data));
+        };
+        editBtn.addEventListener("click", () => {
+          const blockData = data[newElement.textContent];
+          const add = document.querySelector(".addSubject");
+          this.refreshData(blockData);
+          add.addEventListener("click", () => {
+            edit(blockData, add, data);
+          });
         });
       });
     },

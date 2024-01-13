@@ -160,7 +160,8 @@ main {
   background-color: var(--color3);
 }
 
-.blockName {
+.blockName,
+.editBtn {
   cursor: pointer;
   outline: 1px solid black;
   /* background-color: var(--color3); */
