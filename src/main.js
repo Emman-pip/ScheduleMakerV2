@@ -58,7 +58,8 @@ const DOMStuff = () => {
         newElement.style.width = "100%";
 
         const editBtn = document.createElement("div");
-        editBtn.textContent = "Edit";
+        editBtn.textContent = "Add";
+        editBtn.style.textAlign = "center";
         editBtn.classList.add("editBtn");
 
         const btn = document.createElement("div");
@@ -77,43 +78,64 @@ const DOMStuff = () => {
         });
 
         // TODO: HERE
-        const edit = (blockData, add, data) => {
-          console.log("second event");
-          let i = 0;
-          while (Object.keys(blockData).includes(toString(i))) {
-            i++;
-            if (!Object.keys(blockData).includes(toString(i))) {
-              blockData[i]["day"] = document.querySelector("#day").textContent;
-              blockData[i]["subject"] =
-                document.querySelector("#subject").textContent;
-              blockData[i]["start"] =
-                document.querySelector("#start").textContent;
-              blockData[i]["end"] = document.querySelector("#end").textContent;
-            }
-          }
-
-          data[newElement.textContent] = blockData;
-          add.removeEventListener("click", edit);
-          localStorage.setItem("folders", JSON.stringify(data));
-        };
         editBtn.addEventListener("click", () => {
-          const blockData = data[newElement.textContent];
-          const add = document.querySelector(".addSubject");
-          this.refreshData(blockData);
-          add.addEventListener("click", () => {
-            edit(blockData, add, data);
-          });
+          const data = JSON.parse(localStorage.getItem("folders"));
+
+          // console.log(data);
+          // console.log(data);
+          // console.log("Edit clicked");
+          // const blockData = data[newElement.textContent];
+          let i =
+            parseInt(
+              Object.keys(data[newElement.textContent])[
+                Object.keys(data[newElement.textContent]).length - 1
+              ]
+            ) + 1;
+          // console.log(i);
+          const subjData = {};
+          console.log("i", i);
+          subjData["day"] = document.querySelector("#day").value;
+          subjData["subject"] = document.querySelector("#subject").value;
+          const start = document.querySelector("#start");
+          const end = document.querySelector("#end");
+          const endValue = end.value.includes("AM")
+            ? parseInt(end.value.substring(0, end.value.length - 2)) - 5
+            : parseInt(end.value.substring(0, end.value.length - 2)) + 7;
+          const startValue = start.value.includes("AM")
+            ? start.value.substring(0, start.value.length - 2) - 5
+            : parseInt(start.value.substring(0, start.value.length - 2)) + 7;
+
+          subjData["start"] = startValue;
+          subjData["end"] = endValue;
+          let bool = checkSubjectConflict(
+            data[newElement.textContent],
+            subjData
+          );
+          if (!bool) {
+            console.log("conflict");
+            localStorage.setItem("folders", JSON.stringify(data));
+            this.refreshData(data[newElement.textContent]);
+            return;
+          }
+          data[newElement.textContent][i] = subjData;
+          // console.log(data);
+          localStorage.setItem("folders", JSON.stringify(data));
+          this.refreshData(
+            JSON.parse(localStorage.getItem("folders"))[newElement.textContent]
+          );
+          this.displayRecords();
         });
       });
     },
     displayRecords() {
       const record = document.querySelectorAll(".blockName");
-      const data = JSON.parse(localStorage.getItem("folders"));
-      console.log(data);
       record.forEach((e) => {
-        e.addEventListener("click", (ev) => {
-          this.refreshData(data[e.textContent]);
-          changeTitle(e.textContent);
+        const newRecordBtn = e.cloneNode(true);
+        e.parentElement.replaceChild(newRecordBtn, e);
+        const data = JSON.parse(localStorage.getItem("folders"));
+        newRecordBtn.addEventListener("click", (ev) => {
+          this.refreshData(data[newRecordBtn.textContent]);
+          changeTitle(newRecordBtn.textContent);
         });
       });
     },
