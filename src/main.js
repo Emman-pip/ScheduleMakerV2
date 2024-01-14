@@ -43,6 +43,7 @@ const DOMStuff = () => {
     return bool;
   };
   return {
+    // FIX BUG WHERE SHIT BECOMES RED PAG MAY NAGCCONFLICT;
     updateRecords() {
       const data = JSON.parse(localStorage.getItem("folders"));
       if (data === null || Object.keys(data).length === 0) {
@@ -89,18 +90,12 @@ const DOMStuff = () => {
         // TODO: HERE
         editBtn.addEventListener("click", () => {
           const data = JSON.parse(localStorage.getItem("folders"));
-
-          // console.log(data);
-          // console.log(data);
-          // console.log("Edit clicked");
-          // const blockData = data[newElement.textContent];
           let i =
             parseInt(
               Object.keys(data[newElement.textContent])[
                 Object.keys(data[newElement.textContent]).length - 1
               ]
             ) + 1;
-          // console.log(i);
           const subjData = {};
           console.log("i", i);
           subjData["day"] = document.querySelector("#day").value;
@@ -125,11 +120,9 @@ const DOMStuff = () => {
             localStorage.setItem("folders", JSON.stringify(data));
             this.refreshData(data[newElement.textContent]);
             this.displayRecords();
-
             return;
           }
           data[newElement.textContent][i] = subjData;
-          // console.log(data);
           localStorage.setItem("folders", JSON.stringify(data));
           this.refreshData(
             JSON.parse(localStorage.getItem("folders"))[newElement.textContent]
