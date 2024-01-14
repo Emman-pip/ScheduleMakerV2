@@ -18,20 +18,29 @@ const changeTitle = (text) => {
 const DOMStuff = () => {
   // create a function to check if a data has a conflict in the empty storage
   const checkSubjectConflict = (obj, data) => {
+    let bool = true;
     const keys = Object.values(obj);
     for (let i = 0; i < keys.length; i++) {
+      if (data["day"] != keys[i]["day"]) {
+        continue;
+      }
       if (
-        keys[i]["day"] == data["day"] &&
-        data["start"] >= keys[i]["start"] &&
-        data["end"] <= keys[i]["end"]
+        // keys[i]["day"] == data["day"] &&
+        (data["start"] <= keys[i]["start"] &&
+          data["end"] - 1 >= keys[i]["start"] + 1) ||
+        (keys[i]["start"] <= data["start"] &&
+          keys[i]["end"] - 1 >= data["start"]) ||
+        (data["start"] <= keys[i]["start"] && data["end"] > keys[i]["start"]) ||
+        (keys[i]["start"] <= data["start"] &&
+          keys[i]["end"] - 1 >= data["start"])
       ) {
         console.log("conflict");
         alert(keys[i]["subject"] + " was replaced by " + data["subject"]);
         obj[Object.keys(obj)[i]] = data;
-        return false;
+        bool = false;
       }
     }
-    return true;
+    return bool;
   };
   return {
     updateRecords() {
@@ -115,6 +124,8 @@ const DOMStuff = () => {
             console.log("conflict");
             localStorage.setItem("folders", JSON.stringify(data));
             this.refreshData(data[newElement.textContent]);
+            this.displayRecords();
+
             return;
           }
           data[newElement.textContent][i] = subjData;
