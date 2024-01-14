@@ -18,22 +18,32 @@ const changeTitle = (text) => {
 const DOMStuff = () => {
   // create a function to check if a data has a conflict in the empty storage
   const checkSubjectConflict = (obj, data) => {
+    let bool = true;
     const keys = Object.values(obj);
     for (let i = 0; i < keys.length; i++) {
+      if (data["day"] != keys[i]["day"]) {
+        continue;
+      }
       if (
-        keys[i]["day"] == data["day"] &&
-        data["start"] >= keys[i]["start"] &&
-        data["end"] <= keys[i]["end"]
+        // keys[i]["day"] == data["day"] &&
+        (data["start"] <= keys[i]["start"] &&
+          data["end"] - 1 >= keys[i]["start"] + 1) ||
+        (keys[i]["start"] <= data["start"] &&
+          keys[i]["end"] - 1 >= data["start"]) ||
+        (data["start"] <= keys[i]["start"] && data["end"] > keys[i]["start"]) ||
+        (keys[i]["start"] <= data["start"] &&
+          keys[i]["end"] - 1 >= data["start"])
       ) {
         console.log("conflict");
         alert(keys[i]["subject"] + " was replaced by " + data["subject"]);
         obj[Object.keys(obj)[i]] = data;
-        return false;
+        bool = false;
       }
     }
-    return true;
+    return bool;
   };
   return {
+    // FIX BUG WHERE SHIT BECOMES RED PAG MAY NAGCCONFLICT;
     exportData() {
       document.querySelector(".export").addEventListener("click", () => {
         const data = localStorage.getItem("folders");
@@ -89,10 +99,17 @@ const DOMStuff = () => {
         newElement.classList.add("blockName");
         newElement.textContent = e;
         newElement.style.width = "100%";
+
+        const editBtn = document.createElement("div");
+        editBtn.textContent = "Add";
+        editBtn.style.textAlign = "center";
+        editBtn.classList.add("editBtn");
+
         const btn = document.createElement("div");
         btn.textContent = "❌";
         btn.classList.add("deleteBlock");
         container.appendChild(newElement);
+        container.appendChild(editBtn);
         container.appendChild(btn);
         target.appendChild(container);
         console.log("lol");
@@ -102,16 +119,60 @@ const DOMStuff = () => {
           localStorage.setItem("folders", JSON.stringify(data));
           target.removeChild(container);
         });
+
+        // TODO: HERE
+        editBtn.addEventListener("click", () => {
+          const data = JSON.parse(localStorage.getItem("folders"));
+          let i =
+            parseInt(
+              Object.keys(data[newElement.textContent])[
+                Object.keys(data[newElement.textContent]).length - 1
+              ]
+            ) + 1;
+          const subjData = {};
+          console.log("i", i);
+          subjData["day"] = document.querySelector("#day").value;
+          subjData["subject"] = document.querySelector("#subject").value;
+          const start = document.querySelector("#start");
+          const end = document.querySelector("#end");
+          const endValue = end.value.includes("AM")
+            ? parseInt(end.value.substring(0, end.value.length - 2)) - 5
+            : parseInt(end.value.substring(0, end.value.length - 2)) + 7;
+          const startValue = start.value.includes("AM")
+            ? start.value.substring(0, start.value.length - 2) - 5
+            : parseInt(start.value.substring(0, start.value.length - 2)) + 7;
+
+          subjData["start"] = startValue;
+          subjData["end"] = endValue;
+          let bool = checkSubjectConflict(
+            data[newElement.textContent],
+            subjData
+          );
+          if (!bool) {
+            console.log("conflict");
+            localStorage.setItem("folders", JSON.stringify(data));
+            this.refreshData(data[newElement.textContent]);
+            this.displayRecords();
+            return;
+          }
+          data[newElement.textContent][i] = subjData;
+          localStorage.setItem("folders", JSON.stringify(data));
+          this.refreshData(
+            JSON.parse(localStorage.getItem("folders"))[newElement.textContent]
+          );
+          this.displayRecords();
+        });
       });
     },
     displayRecords() {
       const record = document.querySelectorAll(".blockName");
-      const data = JSON.parse(localStorage.getItem("folders"));
-      console.log(data);
       record.forEach((e) => {
-        e.addEventListener("click", (ev) => {
-          this.refreshData(data[e.textContent]);
-          changeTitle(e.textContent);
+        const newRecordBtn = e.cloneNode(true);
+        e.parentElement.replaceChild(newRecordBtn, e);
+        const data = JSON.parse(localStorage.getItem("folders"));
+        newRecordBtn.addEventListener("click", (ev) => {
+          this.refreshData(data[newRecordBtn.textContent]);
+          changeTitle(newRecordBtn.textContent);
         });
       });
     },
