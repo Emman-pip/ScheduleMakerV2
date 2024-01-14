@@ -44,6 +44,39 @@ const DOMStuff = () => {
   };
   return {
     // FIX BUG WHERE SHIT BECOMES RED PAG MAY NAGCCONFLICT;
+    exportData() {
+      document.querySelector(".export").addEventListener("click", () => {
+        const data = localStorage.getItem("folders");
+        // data.select();
+        // data.setSelectionRange(0,99999)
+        navigator.clipboard.writeText(data);
+        const dataContainer = document.querySelector(".data");
+        dataContainer.style.display = "block";
+        const dataField = document.querySelector(".exportedData");
+        dataField.value = data;
+        alert(
+          "Data copied to clipboard. If not, copy the data inside the textboc below"
+        );
+      });
+    },
+    importData() {
+      document.querySelector(".importBtn").addEventListener("click", () => {
+        try {
+          JSON.parse(document.querySelector("#import").value);
+        } catch (e) {
+          alert(e);
+          return;
+        }
+        localStorage.setItem(
+          "folders",
+          document.querySelector("#import").value
+        );
+        alert("data imported");
+
+        document.querySelector("#import").value = "";
+        location.reload();
+      });
+    },
     updateRecords() {
       const data = JSON.parse(localStorage.getItem("folders"));
       if (data === null || Object.keys(data).length === 0) {
@@ -287,6 +320,8 @@ const tempStorage = () => {
       this.gui.time("#end");
       this.gui.updateRecords();
       this.gui.displayRecords();
+      this.gui.exportData();
+      this.gui.importData();
       this.clearTable();
       this.undo();
     },
