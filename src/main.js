@@ -51,7 +51,9 @@ const DOMStuff = () => {
         // data.setSelectionRange(0,99999)
         navigator.clipboard.writeText(data);
         const dataContainer = document.querySelector(".data");
-        dataContainer.style.display = "block";
+        dataContainer.style.display = "flex";
+        dataContainer.style.flexDirection = "column";
+        dataContainer.style.justifyContent = "center";
         const dataField = document.querySelector(".exportedData");
         dataField.value = data;
         alert(
