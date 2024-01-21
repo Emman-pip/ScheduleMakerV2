@@ -565,7 +565,15 @@ const clickOnHead = () => {
   });
 };
 
+const burger = () => {
+  document.querySelector(".burger").addEventListener("click", () => {
+    const madeBy = document.querySelector(".madeBy");
+    madeBy.classList.toggle("toView");
+  });
+};
+
 (() => {
+  burger();
   const obj = tempStorage();
   obj.addSchedMethod();
   obj.init();

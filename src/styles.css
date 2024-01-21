@@ -16,6 +16,10 @@ html {
   background-color: var(--primary);
 }
 
+body {
+  min-width: 290px;
+}
+
 nav {
   background-color: var(--color1);
   padding: 1rem;
@@ -282,8 +286,68 @@ nav > h1 > span {
   cursor: pointer;
 }
 
+.burger > div {
+  width: 100%;
+  height: 0.4rem;
+  border-radius: 1rem;
+  background-color: black;
+}
+
+.burger {
+  border-radius: 1rem;
+  padding: 0.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1px;
+  border-style: groove;
+  border-color: black;
+  display: none;
+  cursor: pointer;
+}
+
+@media (width < 810px) {
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .burger {
+    display: flex;
+    z-index: 9999;
+  }
+  .madeBy {
+    padding-inline: 3rem;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--semi-transparent-purple);
+    backdrop-filter: blur(0.3rem);
+    min-height: 100vh;
+    min-height: 100lvh;
+    width: 80%;
+    z-index: 1000;
+    left: 100%;
+    transform: translateX(0%);
+    transition: transform 300ms;
+  }
+  .toView {
+    transform: translateX(-100%);
+  }
+}
+
 .name {
-  background-color: #8685ef;
+  background: linear-gradient(
+    to bottom right,
+    var(--color2),
+    var(--semi-transparent-purple),
+    var(--color1),
+    var(--color1)
+  );
   padding: 0.5rem;
   text-align: center;
   position: sticky;
