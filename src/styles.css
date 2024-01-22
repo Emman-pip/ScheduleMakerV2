@@ -295,6 +295,7 @@ nav > h1 > span {
   height: 0.4rem;
   border-radius: 1rem;
   background-color: black;
+  transition: transform 1s;
 }
 
 .burger {
@@ -341,6 +342,18 @@ nav > h1 > span {
   }
   .toView {
     transform: translateX(-100%);
+  }
+
+  .rotate {
+    transform: rotate(45deg);
+  }
+
+  .rotateTop {
+    transform: rotate(45deg) translateY(0.53rem) translateX(0.5rem);
+  }
+
+  .rotateToOtherSide {
+    transform: rotate(-45deg) translateY(-0.53rem) translateX(0.5rem);
   }
 }
 

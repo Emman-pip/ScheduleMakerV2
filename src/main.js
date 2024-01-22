@@ -567,6 +567,16 @@ const clickOnHead = () => {
 
 const burger = () => {
   document.querySelector(".burger").addEventListener("click", () => {
+    const lines = document.querySelectorAll(".burger > div");
+    lines.forEach((e) => {
+      e.classList.toggle("rotate");
+
+      if (e == lines[2]) {
+        e.classList.toggle("rotateToOtherSide");
+      } else if (e == lines[0]) {
+        e.classList.toggle("rotateTop");
+      }
+    });
     const madeBy = document.querySelector(".madeBy");
     madeBy.classList.toggle("toView");
   });
