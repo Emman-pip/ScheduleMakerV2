@@ -25,6 +25,10 @@ nav {
   padding: 1rem;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 tr,
 th,
 td {
@@ -301,9 +305,9 @@ nav > h1 > span {
   gap: 0.4rem;
   width: 2rem;
   height: 2rem;
-  border-radius: 1px;
-  border-style: groove;
-  border-color: black;
+  /* border-radius: 1px; */
+  /* border-style: groove; */
+  /* border-color: black; */
   display: none;
   cursor: pointer;
 }
